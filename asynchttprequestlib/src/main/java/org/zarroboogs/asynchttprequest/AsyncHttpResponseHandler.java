@@ -1,4 +1,4 @@
-package org.zarroboogs.asynchttprequestlib;
+package org.zarroboogs.asynchttprequest;
 
 import android.os.Handler;
 import android.os.Looper;

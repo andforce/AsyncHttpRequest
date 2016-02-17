@@ -4,9 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import org.zarroboogs.asynchttprequestlib.AsyncHttpRequest;
-import org.zarroboogs.asynchttprequestlib.AsyncHttpResponse;
-import org.zarroboogs.asynchttprequestlib.AsyncHttpResponseHandler;
+import org.zarroboogs.asynchttprequest.AsyncHttpRequest;
+import org.zarroboogs.asynchttprequest.AsyncHttpResponse;
+import org.zarroboogs.asynchttprequest.AsyncHttpResponseHandler;
 
 import java.io.IOException;
 

@@ -1,10 +1,4 @@
-package org.zarroboogs.asynchttprequestlib;
-
-import java.io.IOException;
-import java.util.List;
-
-import okhttp3.Call;
-import okhttp3.Response;
+package org.zarroboogs.asynchttprequest;
 
 /**
  * Created by wangdiyuan on 16-2-17.
