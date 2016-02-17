@@ -1,11 +1,6 @@
-package org.zarroboogs.asynchttprequest;
-
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
+package org.zarroboogs.asynchttprequestlib;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 

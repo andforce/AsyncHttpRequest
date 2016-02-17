@@ -1,4 +1,4 @@
-package org.zarroboogs.asynchttprequest;
+package org.zarroboogs.asynchttprequestlib;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -15,7 +15,7 @@ public abstract class AsyncHttpResponseHandler {
     private static final int FAILURE_MESSAGE = 0x0002;
     private Handler handler;
 
-    AsyncHttpResponseHandler() {
+    public AsyncHttpResponseHandler() {
         handler = new MyHandler(this, Looper.getMainLooper());
     }
 
