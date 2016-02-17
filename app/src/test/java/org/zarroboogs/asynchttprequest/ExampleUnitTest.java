@@ -1,4 +1,4 @@
-package org.zarroboogs.asynchttprequest;
+package org.zarroboogs.example;
 
 import org.junit.Test;
 

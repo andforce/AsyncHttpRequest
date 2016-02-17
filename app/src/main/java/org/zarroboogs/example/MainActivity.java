@@ -1,4 +1,4 @@
-package org.zarroboogs.asynchttprequest;
+package org.zarroboogs.example;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
