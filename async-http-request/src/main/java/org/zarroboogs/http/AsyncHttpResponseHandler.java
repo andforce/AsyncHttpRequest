@@ -11,9 +11,9 @@ import java.io.IOException;
  */
 public abstract class AsyncHttpResponseHandler {
 
-    private static final int SUCCESS_MESSAGE = 0x0001;
-    private static final int FAILURE_MESSAGE = 0x0002;
-    private Handler handler;
+    protected static final int SUCCESS_MESSAGE = 0x0001;
+    protected static final int FAILURE_MESSAGE = 0x0002;
+    protected Handler handler;
 
     public AsyncHttpResponseHandler() {
         handler = new MyHandler(this, Looper.getMainLooper());
@@ -34,7 +34,7 @@ public abstract class AsyncHttpResponseHandler {
         }
     }
 
-    private void handleMessage(Message msg) {
+    protected void handleMessage(Message msg) {
         switch (msg.what) {
             case SUCCESS_MESSAGE: {
                 AsyncHttpResponse response = (AsyncHttpResponse) msg.obj;
@@ -54,7 +54,7 @@ public abstract class AsyncHttpResponseHandler {
 
     public abstract void onSuccess(AsyncHttpResponse response);
 
-    private Message obtainMessage(int responseMessageId, Object responseMessageData) {
+    protected Message obtainMessage(int responseMessageId, Object responseMessageData) {
         return Message.obtain(handler, responseMessageId, responseMessageData);
     }
 
