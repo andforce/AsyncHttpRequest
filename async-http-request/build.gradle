@@ -26,15 +26,14 @@ dependencies {
 }
 
 ext {
-    PUBLISH_GROUP_ID = 'org.zarroboogs.http'  // 填写groupId， 一般是包名，比如：com.android.support
-    //PUBLISH_ARTIFACT_ID = '你的aritfactId'  // //这里不需要再填写，自动以Model的名字作为aritfactId
-    PUBLISH_VERSION = '0.1.0'   // 版本号，比如：22.2.1
-    PUBLISH_DES = '封装了OKHttpClient'   // 库的描述尽量不要用中文
-    LIB_NAME = 'AsyncHttpRequest'    // lib名称，比如：My_Lib
+    PUBLISH_GROUP_ID = 'org.zarroboogs.http'
+    PUBLISH_VERSION = '0.1.8'
+    PUBLISH_DES = '封装了OKHttpClient'
+    LIB_NAME = 'AsyncHttpRequest'
 
-    WEBSITE_URL = 'https://github.com/andforce/AsyncHttpRequest'  // 可以填写github上的库地址.
-    ISSUE_TRACKER_URL = 'https://github.com/andforce/AsyncHttpRequest/issues' // 可以填写github库的issue地址.
-    VSC_URL = 'https://github.com/andforce/AsyncHttpRequest'    // 可以填写github上库的地址.
+    WEBSITE_URL = 'https://github.com/andforce/AsyncHttpRequest'
+    ISSUE_TRACKER_URL = 'https://github.com/andforce/AsyncHttpRequest/issues'
+    VSC_URL = 'https://github.com/andforce/AsyncHttpRequest'
 }
 
 // 下面这行请勿修改
