@@ -1,4 +1,4 @@
-package org.zarroboogs.asynchttprequest;
+package org.zarroboogs.http;
 
 /**
  * Created by wangdiyuan on 16-2-17.

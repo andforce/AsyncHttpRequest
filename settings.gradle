@@ -1,1 +1,1 @@
-include ':app', ':asynchttprequestlib'
+include ':demo', ':library'

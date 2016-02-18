@@ -1,4 +1,4 @@
-package org.zarroboogs.asynchttprequest;
+package org.zarroboogs.http;
 
 import java.io.IOException;
 import java.util.Map;

@@ -4,13 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import org.zarroboogs.asynchttprequest.AsyncHttpRequest;
-import org.zarroboogs.asynchttprequest.AsyncHttpResponse;
-import org.zarroboogs.asynchttprequest.AsyncHttpResponseHandler;
+import org.zarroboogs.http.AsyncHttpRequest;
+import org.zarroboogs.http.AsyncHttpResponse;
+import org.zarroboogs.http.AsyncHttpResponseHandler;
 
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity {
+public class DemoMainActivity extends AppCompatActivity {
 
     private TextView mTextView;
     @Override
