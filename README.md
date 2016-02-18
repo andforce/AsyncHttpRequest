@@ -1,7 +1,25 @@
 # AsyncHttpRequest
 封装了OkHttp,可直接再异步回调中更新UI
+## 为什么要封装这个库
+1. 我之前一直使用https://github.com/loopj/android-async-http 这个库,它对Apache的httpclient进行了异步封装,
+可以很方便的进行http的请求操作.然而Google从Android5.0开始就不建议使用Apache的Httpcleint了,因而逐渐转向了OkHttp这个库.
+2. OkHttp虽然也能进行异步请求,可Callback不是UI线程内,因此不能在Callback中直接更新UI,使用起来有点不方便.
 
-## 使用方法
+##Gradle
+```
+allprojects {
+		repositories {
+			...
+			maven { url "https://jitpack.io" }
+		}
+}
+
+dependencies {
+	    compile 'com.github.andforce:AsyncHttpRequest:0.1.0'
+}
+```
+
+## API使用方法
 #### GET
 ``` java
         final AsyncHttpRequest request = new AsyncHttpRequest();
@@ -10,7 +28,6 @@
             public void onFailure(IOException e) {
                 //此处更新UI
             }
-
 
             @Override
             public void onSuccess(AsyncHttpResponse response) {
