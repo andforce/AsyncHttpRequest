@@ -3,7 +3,14 @@
 可以很方便的进行http的请求操作.然而Google从Android5.0开始就不建议使用Apache的Httpcleint了,因而逐渐转向了OkHttp这个库.
 2. OkHttp虽然也能进行异步请求,可Callback不是UI线程内,因此不能在Callback中直接更新UI,使用起来有点不方便.
 
-##Gradle
+##在Gradle中使用
+###For jcenter
+```
+dependencies {
+	    compile 'org.zarroboogs.http:async-http-request:0.1.8'
+}
+```
+###For jitpack
 ```
 allprojects {
 		repositories {
