@@ -46,10 +46,18 @@ public class AsyncHttpRequest {
         executeRequest(responseHandler, request);
     }
 
-    public void post(String url, AsyncHttpPostString strContent, final AsyncHttpResponseHandler responseHandler){
+    public void post(String url, AsyncHttpPostString postBody, final AsyncHttpResponseHandler responseHandler){
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(url);
-        requestBuilder.post(RequestBody.create(MediaType.parse(strContent.getContentType()), strContent.getContent()));
+        requestBuilder.post(RequestBody.create(MediaType.parse(postBody.getContentType()), postBody.getContent()));
+        Request request = requestBuilder.build();
+        executeRequest(responseHandler, request);
+    }
+
+    public void post(String url, AsyncHttpPostFile postBody, final AsyncHttpResponseHandler responseHandler){
+        Request.Builder requestBuilder = new Request.Builder();
+        requestBuilder.url(url);
+        requestBuilder.post(RequestBody.create(MediaType.parse(postBody.getContentType()), postBody.getContent()));
         Request request = requestBuilder.build();
         executeRequest(responseHandler, request);
     }
