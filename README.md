@@ -1,5 +1,3 @@
-# AsyncHttpRequest
-封装了OkHttp,可直接再异步回调中更新UI
 ## 为什么要封装这个库
 1. 我之前一直使用https://github.com/loopj/android-async-http 这个库,它对Apache的httpclient进行了异步封装,
 可以很方便的进行http的请求操作.然而Google从Android5.0开始就不建议使用Apache的Httpcleint了,因而逐渐转向了OkHttp这个库.
