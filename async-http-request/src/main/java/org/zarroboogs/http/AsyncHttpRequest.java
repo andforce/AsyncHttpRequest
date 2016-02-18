@@ -8,8 +8,10 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Headers;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
@@ -44,6 +46,13 @@ public class AsyncHttpRequest {
         executeRequest(responseHandler, request);
     }
 
+    public void post(String url, AsyncHttpPostString strContent, final AsyncHttpResponseHandler responseHandler){
+        Request.Builder requestBuilder = new Request.Builder();
+        requestBuilder.url(url);
+        requestBuilder.post(RequestBody.create(MediaType.parse(strContent.getContentType()), strContent.getContent()));
+        Request request = requestBuilder.build();
+        executeRequest(responseHandler, request);
+    }
 
 
     public void get(String url, final AsyncHttpResponseHandler responseHandler) {
