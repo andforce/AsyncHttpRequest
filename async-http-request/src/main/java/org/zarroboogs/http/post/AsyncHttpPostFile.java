@@ -1,13 +1,15 @@
-package org.zarroboogs.http;
+package org.zarroboogs.http.post;
+
+import java.io.File;
 
 /**
  * Created by wangdiyuan on 16-2-18.
  */
-public class AsyncHttpPostString {
+public class AsyncHttpPostFile {
     private String contentType;
-    private String content;
+    private File content;
 
-    public AsyncHttpPostString(String contentType, String content) {
+    public AsyncHttpPostFile(String contentType, File content) {
         this.contentType = contentType;
         this.content = content;
     }
@@ -20,11 +22,11 @@ public class AsyncHttpPostString {
         this.contentType = contentType;
     }
 
-    public String getContent() {
+    public File getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent(File content) {
         this.content = content;
     }
 }

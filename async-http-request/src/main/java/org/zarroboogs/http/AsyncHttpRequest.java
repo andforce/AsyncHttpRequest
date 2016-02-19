@@ -1,5 +1,9 @@
 package org.zarroboogs.http;
 
+import org.zarroboogs.http.post.AsyncHttpPostFile;
+import org.zarroboogs.http.post.AsyncHttpPostFormData;
+import org.zarroboogs.http.post.AsyncHttpPostString;
+
 import java.io.IOException;
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -29,6 +33,7 @@ import okio.BufferedSource;
 import okio.ForwardingSource;
 import okio.Okio;
 import okio.Source;
+
 import static java.util.logging.Level.WARNING;
 import static okhttp3.internal.Util.delimiterOffset;
 import static okhttp3.internal.Util.trimSubstring;
@@ -37,14 +42,14 @@ import static okhttp3.internal.Util.trimSubstring;
  * Created by wangdiyuan on 16-2-17.
  */
 public class AsyncHttpRequest {
-    private  OkHttpClient mOkHttpClient;
+    private OkHttpClient mOkHttpClient;
 
-    public AsyncHttpRequest(){
+    public AsyncHttpRequest() {
         CookieManager cookieManager = new CookieManager();
         mOkHttpClient = new OkHttpClient.Builder().cookieJar(new JavaNetCookieJar(cookieManager)).build();
     }
 
-    public void post(String url, AsyncHttpHeaders headers, Map<String, String> formData, final AsyncHttpResponseHandler responseHandler) {
+    public void post(String url, AsyncHttpHeaders headers, AsyncHttpPostFormData formData, final AsyncHttpResponseHandler responseHandler) {
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(url);
         // 设置 headers
@@ -60,9 +65,10 @@ public class AsyncHttpRequest {
         // 设置RequestBody
         FormBody.Builder formBodyBuilder = new FormBody.Builder();
         if (formData != null) {
-            Set<String> postParamKeys = formData.keySet();
+            Map<String, String> formDataMap = formData.getFormData();
+            Set<String> postParamKeys = formDataMap.keySet();
             for (String key : postParamKeys) {
-                formBodyBuilder.add(key, formData.get(key));
+                formBodyBuilder.add(key, formDataMap.get(key));
             }
         }
         requestBuilder.post(formBodyBuilder.build());
@@ -107,7 +113,7 @@ public class AsyncHttpRequest {
     }
 
     //
-    public void post(String url, AsyncHttpHeaders headers, Map<String, String> formData, AsyncHttpResponseProgressHandler responseProgressHandler) {
+    public void post(String url, AsyncHttpHeaders headers, AsyncHttpPostFormData formData, AsyncHttpResponseProgressHandler responseProgressHandler) {
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(url);
         // 设置 headers
@@ -123,9 +129,10 @@ public class AsyncHttpRequest {
         // 设置RequestBody
         FormBody.Builder formBodyBuilder = new FormBody.Builder();
         if (formData != null) {
-            Set<String> postParamKeys = formData.keySet();
+            Map<String, String> formDataMap = formData.getFormData();
+            Set<String> postParamKeys = formDataMap.keySet();
             for (String key : postParamKeys) {
-                formBodyBuilder.add(key, formData.get(key));
+                formBodyBuilder.add(key, formDataMap.get(key));
             }
         }
         requestBuilder.post(formBodyBuilder.build());
@@ -340,7 +347,8 @@ public class AsyncHttpRequest {
             this.cookieHandler = cookieHandler;
         }
 
-        @Override public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+        @Override
+        public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
             if (cookieHandler != null) {
                 List<String> cookieStrings = new ArrayList<>();
                 for (Cookie cookie : cookies) {
@@ -355,7 +363,8 @@ public class AsyncHttpRequest {
             }
         }
 
-        @Override public List<Cookie> loadForRequest(HttpUrl url) {
+        @Override
+        public List<Cookie> loadForRequest(HttpUrl url) {
             // The RI passes all headers. We don't have 'em, so we don't pass 'em!
             Map<String, List<String>> headers = Collections.emptyMap();
             Map<String, List<String>> cookieHeaders;
@@ -383,10 +392,6 @@ public class AsyncHttpRequest {
                     : Collections.<Cookie>emptyList();
         }
 
-        /**
-         * Convert a request header to OkHttp's cookies via {@link HttpCookie}. That extra step handles
-         * multiple cookies in a single request header, which {@link Cookie#parse} doesn't support.
-         */
         private List<Cookie> decodeHeaderAsJavaNetCookies(HttpUrl url, String header) {
             List<Cookie> result = new ArrayList<>();
             for (int pos = 0, limit = header.length(), pairEnd; pos < limit; pos = pairEnd + 1) {

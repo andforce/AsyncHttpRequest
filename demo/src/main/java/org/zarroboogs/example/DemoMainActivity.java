@@ -2,13 +2,10 @@ package org.zarroboogs.example;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
-import org.zarroboogs.http.AsyncHttpPostString;
 import org.zarroboogs.http.AsyncHttpRequest;
 import org.zarroboogs.http.AsyncHttpResponse;
-import org.zarroboogs.http.AsyncHttpResponseHandler;
 import org.zarroboogs.http.AsyncHttpResponseProgressHandler;
 
 import java.io.IOException;
