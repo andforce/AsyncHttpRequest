@@ -13,12 +13,27 @@ public abstract class AsyncHttpResponseHandler {
 
     protected static final int SUCCESS_MESSAGE = 0x0001;
     protected static final int FAILURE_MESSAGE = 0x0002;
+    protected static final int UPDATE_MESSAGE = 0x0003;
+
     protected Handler handler;
 
+    private OnProgressListener mProgressListener;
+
     public AsyncHttpResponseHandler() {
+        super();
         handler = new MyHandler(this, Looper.getMainLooper());
     }
 
+
+    public AsyncHttpResponseHandler(OnProgressListener listener){
+        super();
+        handler = new MyHandler(this, Looper.getMainLooper());
+        this.mProgressListener = listener;
+    }
+
+    public final boolean isProgressListenerEmpty(){
+        return mProgressListener == null;
+    }
 
     private static class MyHandler extends Handler {
         private final AsyncHttpResponseHandler mResponder;
@@ -47,6 +62,14 @@ public abstract class AsyncHttpResponseHandler {
                 onFailure(e);
                 break;
             }
+            case UPDATE_MESSAGE: {
+                if (!isProgressListenerEmpty()){
+                    long[] objects = (long[]) msg.obj;
+                    mProgressListener.onProgress(objects[0],objects[1]);
+                }
+
+                break;
+            }
         }
     }
 
@@ -64,5 +87,13 @@ public abstract class AsyncHttpResponseHandler {
 
     final public void sendFailureMessage(IOException e) {
         handler.sendMessage(obtainMessage(FAILURE_MESSAGE, e));
+    }
+
+    final public void sendUpdateMessage(long bytesRead, long contentLength) {
+        handler.sendMessage(obtainMessage(UPDATE_MESSAGE, new long[]{bytesRead,contentLength}));
+    }
+
+    public interface OnProgressListener{
+        public void onProgress(long bytesRead, long contentLength);
     }
 }

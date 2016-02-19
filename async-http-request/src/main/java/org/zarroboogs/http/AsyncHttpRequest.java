@@ -112,51 +112,6 @@ public class AsyncHttpRequest {
         executeRequest(mOkHttpClient, request, responseHandler);
     }
 
-    //
-    public void post(String url, AsyncHttpHeaders headers, AsyncHttpPostFormData formData, AsyncHttpResponseProgressHandler responseProgressHandler) {
-        Request.Builder requestBuilder = new Request.Builder();
-        requestBuilder.url(url);
-        // 设置 headers
-        Headers.Builder headersBuilder = new Headers.Builder();
-        if (headers != null) {
-            Map<String, String> headersMap = headers.getHeaders();
-            Set<String> headerKeys = headersMap.keySet();
-            for (String key : headerKeys) {
-                headersBuilder.add(key, headersMap.get(key));
-            }
-            requestBuilder.headers(headersBuilder.build());
-        }
-        // 设置RequestBody
-        FormBody.Builder formBodyBuilder = new FormBody.Builder();
-        if (formData != null) {
-            Map<String, String> formDataMap = formData.getFormData();
-            Set<String> postParamKeys = formDataMap.keySet();
-            for (String key : postParamKeys) {
-                formBodyBuilder.add(key, formDataMap.get(key));
-            }
-        }
-        requestBuilder.post(formBodyBuilder.build());
-        Request request = requestBuilder.build();
-        executeProgressRequest(mOkHttpClient, request, responseProgressHandler);
-    }
-
-    public void post(String url, AsyncHttpPostString postString, AsyncHttpResponseProgressHandler responseProgressHandler) {
-        Request.Builder requestBuilder = new Request.Builder();
-        requestBuilder.url(url);
-        requestBuilder.post(RequestBody.create(MediaType.parse(postString.getContentType()), postString.getContent()));
-        Request request = requestBuilder.build();
-        executeProgressRequest(mOkHttpClient, request, responseProgressHandler);
-    }
-
-    public void post(String url, AsyncHttpPostFile postBody, AsyncHttpResponseProgressHandler responseProgressHandler) {
-        Request.Builder requestBuilder = new Request.Builder();
-        requestBuilder.url(url);
-        requestBuilder.post(RequestBody.create(MediaType.parse(postBody.getContentType()), postBody.getContent()));
-        Request request = requestBuilder.build();
-        executeProgressRequest(mOkHttpClient, request, responseProgressHandler);
-    }
-    //
-
 
     public void get(String url, final AsyncHttpResponseHandler responseHandler) {
         get(url, null, responseHandler);
@@ -183,78 +138,32 @@ public class AsyncHttpRequest {
 
     }
 
-    public void get(String url, final AsyncHttpResponseProgressHandler responseProgressHandler) {
-        Request.Builder requestBuilder = new Request.Builder();
-        requestBuilder.url(url);
-        Request request = requestBuilder.build();
+    public OkHttpClient buildClient(OkHttpClient httpClient, AsyncHttpResponseHandler responseProgressHandler){
 
-        executeProgressRequest(mOkHttpClient, request, responseProgressHandler);
-    }
+        if (!responseProgressHandler.isProgressListenerEmpty()){
+            final AsyncHttpProgressListener listener = new AsyncHttpProgressListener(responseProgressHandler);
+            OkHttpClient progressHttpClient = httpClient.newBuilder().addNetworkInterceptor(new Interceptor() {
+                @Override
+                public Response intercept(Chain chain) throws IOException {
+                    Response originalResponse = chain.proceed(chain.request());
 
-    public void get(String url, AsyncHttpHeaders headers, final AsyncHttpResponseProgressHandler responseProgressHandler) {
-        Request.Builder requestBuilder = new Request.Builder();
-
-        Headers.Builder headersBuilder = new Headers.Builder();
-        if (headers != null) {
-            Map<String, String> headersMap = headers.getHeaders();
-            Set<String> headerKeys = headersMap.keySet();
-            for (String key : headerKeys) {
-                headersBuilder.add(key, headersMap.get(key));
-            }
-            requestBuilder.headers(headersBuilder.build());
+                    return originalResponse.newBuilder().body(new ProgressResponseBody(originalResponse.body(), listener)).build();
+                }
+            }).build();
+            return progressHttpClient;
+        } else {
+            return httpClient;
         }
-
-        requestBuilder.url(url);
-
-        Request request = requestBuilder.build();
-        executeProgressRequest(mOkHttpClient, request, responseProgressHandler);
-
     }
 
-    private void executeRequest(OkHttpClient httpClient, Request request, final AsyncHttpResponseHandler responseHandler) {
-        Call call = httpClient.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, final IOException e) {
-                if (responseHandler != null) {
-                    responseHandler.sendFailureMessage(e);
-
-                }
-            }
-
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-                if (responseHandler != null) {
-                    AsyncHttpResponse asyncHttpResponse = new AsyncHttpResponse();
-                    try {
-                        asyncHttpResponse.setBody(response.body().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    asyncHttpResponse.setCode(response.code());
-                    asyncHttpResponse.setHeaders(response.headers().toString());
-
-                    responseHandler.sendSuccessMessage(asyncHttpResponse);
-                }
-            }
-        });
-    }
+    private void executeRequest(OkHttpClient httpClient, Request request, final AsyncHttpResponseHandler responseProgressHandler) {
 
 
-    private void executeProgressRequest(OkHttpClient httpClient, Request request, final AsyncHttpResponseProgressHandler responseProgressHandler) {
-        final AsyncHttpProgressListener listener = new AsyncHttpProgressListener(responseProgressHandler);
-
-        OkHttpClient progressHttpClient = httpClient.newBuilder().addNetworkInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Response originalResponse = chain.proceed(chain.request());
-
-                return originalResponse.newBuilder().body(new ProgressResponseBody(originalResponse.body(), listener)).build();
-            }
-        }).build();
+        OkHttpClient client = buildClient(httpClient, responseProgressHandler);
 
 
-        progressHttpClient.newCall(request).enqueue(new Callback() {
+
+        client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (responseProgressHandler != null) {
@@ -327,9 +236,9 @@ public class AsyncHttpRequest {
     }
 
     private class AsyncHttpProgressListener {
-        private AsyncHttpResponseProgressHandler responseProgressHandler;
+        private AsyncHttpResponseHandler responseProgressHandler;
 
-        public AsyncHttpProgressListener(AsyncHttpResponseProgressHandler httpResponseProgressHandler) {
+        public AsyncHttpProgressListener(AsyncHttpResponseHandler httpResponseProgressHandler) {
             this.responseProgressHandler = httpResponseProgressHandler;
         }
 
