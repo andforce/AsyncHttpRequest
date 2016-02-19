@@ -26,25 +26,44 @@ public class DemoMainActivity extends AppCompatActivity {
         mTextView = (TextView) findViewById(R.id.show_http_response);
         final AsyncHttpRequest request = new AsyncHttpRequest();
 
-        request.get("http://www.aqtxt.com/", new AsyncHttpResponseProgressHandler() {
+        Map<String ,String> formData = new HashMap<>();
+        formData.put("search", "Jurassic Park");
+
+        request.post("https://en.wikipedia.org/w/index.php", null, formData, new AsyncHttpResponseProgressHandler() {
             @Override
             public void onUpdate(long bytesRead, long contentLength) {
                 mTextView.setText("" + bytesRead + " / " +contentLength);
-                Log.d("MyUpdateLoad", "update");
             }
 
             @Override
             public void onFailure(IOException e) {
-                Log.d("MyUpdateLoad", "onFailure");
-
+                mTextView.setText(e.getLocalizedMessage());
             }
 
             @Override
             public void onSuccess(AsyncHttpResponse response) {
-                Log.d("MyUpdateLoad", "onSuccess");
-
+                mTextView.setText(response.getBody());
             }
         });
+//        request.get("http://www.aqtxt.com/", new AsyncHttpResponseProgressHandler() {
+//            @Override
+//            public void onUpdate(long bytesRead, long contentLength) {
+//                mTextView.setText("" + bytesRead + " / " +contentLength);
+//                Log.d("MyUpdateLoad", "update");
+//            }
+//
+//            @Override
+//            public void onFailure(IOException e) {
+//                Log.d("MyUpdateLoad", "onFailure");
+//
+//            }
+//
+//            @Override
+//            public void onSuccess(AsyncHttpResponse response) {
+//                Log.d("MyUpdateLoad", "onSuccess");
+//
+//            }
+//        });
 
 
 
