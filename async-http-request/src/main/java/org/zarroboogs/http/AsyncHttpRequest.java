@@ -28,15 +28,16 @@ public class AsyncHttpRequest {
     private final OkHttpClient mOkHttpClient = new OkHttpClient();
 
 
-    public void post(String url, Map<String, String> headers, Map<String, String> formData, final AsyncHttpResponseHandler responseHandler) {
+    public void post(String url, AsyncHttpHeaders headers, Map<String, String> formData, final AsyncHttpResponseHandler responseHandler) {
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(url);
         // 设置 headers
         Headers.Builder headersBuilder = new Headers.Builder();
         if (headers != null) {
-            Set<String> headerKeys = headers.keySet();
+            Map<String, String> headersMap = headers.getHeaders();
+            Set<String> headerKeys = headersMap.keySet();
             for (String key : headerKeys) {
-                headersBuilder.add(key, headers.get(key));
+                headersBuilder.add(key, headersMap.get(key));
             }
             requestBuilder.headers(headersBuilder.build());
         }
@@ -53,10 +54,10 @@ public class AsyncHttpRequest {
         executeRequest(mOkHttpClient, request, responseHandler);
     }
 
-    public void post(String url, AsyncHttpPostString postBody, final AsyncHttpResponseHandler responseHandler) {
+    public void post(String url, AsyncHttpPostString postString, final AsyncHttpResponseHandler responseHandler) {
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(url);
-        requestBuilder.post(RequestBody.create(MediaType.parse(postBody.getContentType()), postBody.getContent()));
+        requestBuilder.post(RequestBody.create(MediaType.parse(postString.getContentType()), postString.getContent()));
         Request request = requestBuilder.build();
         executeRequest(mOkHttpClient, request, responseHandler);
     }
@@ -70,16 +71,17 @@ public class AsyncHttpRequest {
         executeRequest(mOkHttpClient, request, responseHandler);
     }
 
-    public void post(String url, Map<String, String> headers, AsyncHttpPostFile postBody, final AsyncHttpResponseHandler responseHandler) {
+    public void post(String url, AsyncHttpHeaders headers, AsyncHttpPostFile postBody, final AsyncHttpResponseHandler responseHandler) {
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(url);
         requestBuilder.post(RequestBody.create(MediaType.parse(postBody.getContentType()), postBody.getContent()));
         // 设置 headers
         Headers.Builder headersBuilder = new Headers.Builder();
         if (headers != null) {
-            Set<String> headerKeys = headers.keySet();
+            Map<String, String> headersMap = headers.getHeaders();
+            Set<String> headerKeys = headersMap.keySet();
             for (String key : headerKeys) {
-                headersBuilder.add(key, headers.get(key));
+                headersBuilder.add(key, headersMap.get(key));
             }
             requestBuilder.headers(headersBuilder.build());
         }
@@ -89,15 +91,16 @@ public class AsyncHttpRequest {
     }
 
     //
-    public void post(String url, Map<String, String> headers, Map<String, String> formData, AsyncHttpResponseProgressHandler responseProgressHandler) {
+    public void post(String url, AsyncHttpHeaders headers, Map<String, String> formData, AsyncHttpResponseProgressHandler responseProgressHandler) {
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(url);
         // 设置 headers
         Headers.Builder headersBuilder = new Headers.Builder();
         if (headers != null) {
-            Set<String> headerKeys = headers.keySet();
+            Map<String, String> headersMap = headers.getHeaders();
+            Set<String> headerKeys = headersMap.keySet();
             for (String key : headerKeys) {
-                headersBuilder.add(key, headers.get(key));
+                headersBuilder.add(key, headersMap.get(key));
             }
             requestBuilder.headers(headersBuilder.build());
         }
@@ -114,10 +117,10 @@ public class AsyncHttpRequest {
         executeProgressRequest(mOkHttpClient, request, responseProgressHandler);
     }
 
-    public void post(String url, AsyncHttpPostString postBody, AsyncHttpResponseProgressHandler responseProgressHandler) {
+    public void post(String url, AsyncHttpPostString postString, AsyncHttpResponseProgressHandler responseProgressHandler) {
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(url);
-        requestBuilder.post(RequestBody.create(MediaType.parse(postBody.getContentType()), postBody.getContent()));
+        requestBuilder.post(RequestBody.create(MediaType.parse(postString.getContentType()), postString.getContent()));
         Request request = requestBuilder.build();
         executeProgressRequest(mOkHttpClient, request, responseProgressHandler);
     }
@@ -137,14 +140,15 @@ public class AsyncHttpRequest {
     }
 
 
-    public void get(String url, Map<String, String> headers, final AsyncHttpResponseHandler responseHandler) {
+    public void get(String url, AsyncHttpHeaders headers, final AsyncHttpResponseHandler responseHandler) {
         Request.Builder requestBuilder = new Request.Builder();
 
         Headers.Builder headersBuilder = new Headers.Builder();
         if (headers != null) {
-            Set<String> headerKeys = headers.keySet();
+            Map<String, String> headersMap = headers.getHeaders();
+            Set<String> headerKeys = headersMap.keySet();
             for (String key : headerKeys) {
-                headersBuilder.add(key, headers.get(key));
+                headersBuilder.add(key, headersMap.get(key));
             }
             requestBuilder.headers(headersBuilder.build());
         }
@@ -164,14 +168,15 @@ public class AsyncHttpRequest {
         executeProgressRequest(mOkHttpClient, request, responseProgressHandler);
     }
 
-    public void get(String url, Map<String, String> headers, final AsyncHttpResponseProgressHandler responseProgressHandler) {
+    public void get(String url, AsyncHttpHeaders headers, final AsyncHttpResponseProgressHandler responseProgressHandler) {
         Request.Builder requestBuilder = new Request.Builder();
 
         Headers.Builder headersBuilder = new Headers.Builder();
         if (headers != null) {
-            Set<String> headerKeys = headers.keySet();
+            Map<String, String> headersMap = headers.getHeaders();
+            Set<String> headerKeys = headersMap.keySet();
             for (String key : headerKeys) {
-                headersBuilder.add(key, headers.get(key));
+                headersBuilder.add(key, headersMap.get(key));
             }
             requestBuilder.headers(headersBuilder.build());
         }
