@@ -41,23 +41,43 @@ dependencies {
         });
 ```
 #### POST
+##### POST FormData
 ``` java
+        final AsyncHttpRequest request = new AsyncHttpRequest();
         // 构建Headers
-        Map<String, String> headers = new HashMap<>();
-        headers.put("Connection", "keep-alive");
-        // 构建Form Data
-        Map<String , String> formData = new HashMap<>();
-        formData.put("username","andforce");
+        AsyncHttpPostFormData formData = new AsyncHttpPostFormData();
+        formData.addFormData("search", "Jurassic Park");
+        request.post("https://en.wikipedia.org/w/index.php", null, formData, new AsyncHttpResponseProgressHandler() {
+            @Override
+            public void onUpdate(long bytesRead, long contentLength) {
+                mTextView.setText("" + bytesRead + " / " +contentLength);
+            }
 
-        request.post("http://www.example.com", headers, formData, new AsyncHttpResponseHandler() {
             @Override
             public void onFailure(IOException e) {
-                // 更新UI
+                mTextView.setText(e.getLocalizedMessage());
             }
 
             @Override
             public void onSuccess(AsyncHttpResponse response) {
-                // 更新UI
+                mTextView.setText(response.getBody());
+            }
+        });
+```
+##### POST 上传文件
+``` java
+        final AsyncHttpRequest request = new AsyncHttpRequest();
+        File uploadFile = new File("your file's path");
+        AsyncHttpPostFile postFile = new AsyncHttpPostFile("application/octet-stream", uploadFile);
+        request.post(url, httpHeaders, postFile, new AsyncHttpResponseHandler() {
+            @Override
+            public void onFailure(IOException e) {
+
+            }
+
+            @Override
+            public void onSuccess(AsyncHttpResponse response) {
+
             }
         });
 ```

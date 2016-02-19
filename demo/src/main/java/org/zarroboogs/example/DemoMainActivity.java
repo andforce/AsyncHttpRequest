@@ -7,6 +7,7 @@ import android.widget.TextView;
 import org.zarroboogs.http.AsyncHttpRequest;
 import org.zarroboogs.http.AsyncHttpResponse;
 import org.zarroboogs.http.AsyncHttpResponseProgressHandler;
+import org.zarroboogs.http.post.AsyncHttpPostFormData;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -23,9 +24,8 @@ public class DemoMainActivity extends AppCompatActivity {
         mTextView = (TextView) findViewById(R.id.show_http_response);
         final AsyncHttpRequest request = new AsyncHttpRequest();
 
-        Map<String ,String> formData = new HashMap<>();
-        formData.put("search", "Jurassic Park");
-
+        AsyncHttpPostFormData formData = new AsyncHttpPostFormData();
+        formData.addFormData("search", "Jurassic Park");
         request.post("https://en.wikipedia.org/w/index.php", null, formData, new AsyncHttpResponseProgressHandler() {
             @Override
             public void onUpdate(long bytesRead, long contentLength) {
