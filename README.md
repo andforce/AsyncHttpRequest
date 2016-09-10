@@ -27,31 +27,32 @@ dependencies {
 ## API使用方法
 #### GET
 ``` java
-        final AsyncHttpRequest request = new AsyncHttpRequest();
-        request.get("http://www.baidu.com", new AsyncHttpResponseHandler() {
+        AsyncOkHttpClient request = new AsyncOkHttpClient();
+        request.get("http://www.baidu.com", new AsyncResponseHandler() {
             @Override
             public void onFailure(IOException e) {
-                //此处更新UI
+                mTextView.setText(e.toString());
             }
+
 
             @Override
             public void onSuccess(AsyncHttpResponse response) {
-                //此处更新UI
+                mTextView.setText(response.getBody());
             }
         });
 ```
-#### POST
-##### POST FormData
+
+#### GET 带进度
 ``` java
-        final AsyncHttpRequest request = new AsyncHttpRequest();
-        // 构建Headers
+        AsyncOkHttpClient request = new AsyncOkHttpClient();
         AsyncHttpPostFormData formData = new AsyncHttpPostFormData();
         formData.addFormData("search", "Jurassic Park");
-        request.post("https://en.wikipedia.org/w/index.php", null, formData, new AsyncHttpResponseProgressHandler() {
+        request.post("https://en.wikipedia.org/w/index.php", null, formData, new AsyncResponseHandler(new AsyncResponseHandler.OnProgressListener() {
             @Override
-            public void onUpdate(long bytesRead, long contentLength) {
-                mTextView.setText("" + bytesRead + " / " +contentLength);
+            public void onProgress(long bytesRead, long contentLength) {
+                mTextView.setText("" + bytesRead + "  " + contentLength);
             }
+        }) {
 
             @Override
             public void onFailure(IOException e) {
@@ -64,12 +65,56 @@ dependencies {
             }
         });
 ```
+
+
+
+#### POST
+##### POST
+``` java
+        AsyncOkHttpClient request = new AsyncOkHttpClient();
+        request.post("https://api.github.com/markdown/raw", new AsyncHttpPostString("text/x-markdown; charset=utf-8", "test"), new AsyncResponseHandler() {
+            @Override
+            public void onFailure(IOException e) {
+                mTextView.setText(e.toString());
+            }
+
+            @Override
+            public void onSuccess(AsyncHttpResponse response) {
+                mTextView.setText(response.getBody());
+            }
+        });
+```
+
+##### POST FormData
+``` java
+        AsyncOkHttpClient request = new AsyncOkHttpClient();
+        AsyncHttpPostFormData formData = new AsyncHttpPostFormData();
+        formData.addFormData("search", "Jurassic Park");
+        request.post("https://en.wikipedia.org/w/index.php", null, formData, new AsyncResponseHandler(new AsyncResponseHandler.OnProgressListener() {
+            @Override
+            public void onProgress(long bytesRead, long contentLength) {
+                mTextView.setText("" + bytesRead + "  " + contentLength);
+            }
+        }) {
+
+            @Override
+            public void onFailure(IOException e) {
+                mTextView.setText(e.getLocalizedMessage());
+            }
+
+            @Override
+            public void onSuccess(AsyncHttpResponse response) {
+                mTextView.setText(response.getBody());
+            }
+        });
+```
+
 ##### POST 上传文件
 ``` java
-        final AsyncHttpRequest request = new AsyncHttpRequest();
+        AsyncOkHttpClient request = new AsyncOkHttpClient();
         File uploadFile = new File("your file's path");
         AsyncHttpPostFile postFile = new AsyncHttpPostFile("application/octet-stream", uploadFile);
-        request.post(url, httpHeaders, postFile, new AsyncHttpResponseHandler() {
+        request.post(url, httpHeaders, postFile, new AsyncResponseHandler() {
             @Override
             public void onFailure(IOException e) {
 
