@@ -30,7 +30,7 @@ ext {
     desc = '封装了OkHttp,可以方便的进行异步请求,并在回调种直接更新UI'
 
     groupId = 'org.zarroboogs.http'
-    version = '3.4.4'
+    version = '0.1.9'
 
     websiteUrl = 'https://github.com/andforce/AsyncOkHttp'
     issueTrackerUrl = 'https://github.com/andforce/AsyncOkHttp/issues'

@@ -7,7 +7,7 @@
 ###For jcenter
 ```
 dependencies {
-	    compile 'org.zarroboogs.http:async-http-request:0.1.8'
+	    compile 'org.zarroboogs.http:asyncokhttp:0.1.9'
 }
 ```
 ###For jitpack
@@ -20,7 +20,7 @@ allprojects {
 }
 
 dependencies {
-	    compile 'com.github.andforce:AsyncHttpRequest:0.1.8'
+	    compile 'com.github.andforce:asyncokhttp:0.1.9'
 }
 ```
 
