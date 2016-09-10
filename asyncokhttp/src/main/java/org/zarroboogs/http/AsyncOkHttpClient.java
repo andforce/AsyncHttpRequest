@@ -26,14 +26,16 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import okhttp3.internal.Internal;
+import okhttp3.internal.platform.Platform;
 import okio.Buffer;
 import okio.BufferedSource;
 import okio.ForwardingSource;
 import okio.Okio;
 import okio.Source;
 
-import static java.util.logging.Level.WARNING;
+import java.net.HttpCookie;
+
+import static okhttp3.internal.platform.Platform.WARN;
 import static okhttp3.internal.Util.delimiterOffset;
 import static okhttp3.internal.Util.trimSubstring;
 
@@ -137,9 +139,9 @@ public class AsyncOkHttpClient {
 
     }
 
-    public OkHttpClient buildClient(OkHttpClient httpClient, AsyncResponseHandler responseProgressHandler){
+    public OkHttpClient buildClient(OkHttpClient httpClient, AsyncResponseHandler responseProgressHandler) {
 
-        if (!responseProgressHandler.isProgressListenerEmpty()){
+        if (!responseProgressHandler.isProgressListenerEmpty()) {
             final AsyncHttpProgressListener listener = new AsyncHttpProgressListener(responseProgressHandler);
             OkHttpClient progressHttpClient = httpClient.newBuilder().addNetworkInterceptor(new Interceptor() {
                 @Override
@@ -159,7 +161,6 @@ public class AsyncOkHttpClient {
 
 
         OkHttpClient client = buildClient(httpClient, responseProgressHandler);
-
 
 
         client.newCall(request).enqueue(new Callback() {
@@ -248,6 +249,9 @@ public class AsyncOkHttpClient {
         }
     }
 
+    /**
+     * A cookie jar that delegates to a {@link java.net.CookieHandler}.
+     */
     public final class JavaNetCookieJar implements CookieJar {
         private final CookieHandler cookieHandler;
 
@@ -266,7 +270,7 @@ public class AsyncOkHttpClient {
                 try {
                     cookieHandler.put(url.uri(), multimap);
                 } catch (IOException e) {
-                    Internal.logger.log(WARNING, "Saving cookies failed for " + url.resolve("/..."), e);
+                    Platform.get().log(WARN, "Saving cookies failed for " + url.resolve("/..."), e);
                 }
             }
         }
@@ -279,7 +283,7 @@ public class AsyncOkHttpClient {
             try {
                 cookieHeaders = cookieHandler.get(url.uri(), headers);
             } catch (IOException e) {
-                Internal.logger.log(WARNING, "Loading cookies failed for " + url.resolve("/..."), e);
+                Platform.get().log(WARN, "Loading cookies failed for " + url.resolve("/..."), e);
                 return Collections.emptyList();
             }
 
@@ -300,6 +304,10 @@ public class AsyncOkHttpClient {
                     : Collections.<Cookie>emptyList();
         }
 
+        /**
+         * Convert a request header to OkHttp's cookies via {@link HttpCookie}. That extra step handles
+         * multiple cookies in a single request header, which {@link Cookie#parse} doesn't support.
+         */
         private List<Cookie> decodeHeaderAsJavaNetCookies(HttpUrl url, String header) {
             List<Cookie> result = new ArrayList<>();
             for (int pos = 0, limit = header.length(), pairEnd; pos < limit; pos = pairEnd + 1) {
