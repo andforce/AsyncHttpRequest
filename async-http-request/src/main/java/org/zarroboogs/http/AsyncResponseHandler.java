@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Created by wangdiyuan on 16-2-17.
  */
-public abstract class AsyncHttpResponseHandler {
+public abstract class AsyncResponseHandler {
 
     protected static final int SUCCESS_MESSAGE = 0x0001;
     protected static final int FAILURE_MESSAGE = 0x0002;
@@ -19,13 +19,13 @@ public abstract class AsyncHttpResponseHandler {
 
     private OnProgressListener mProgressListener;
 
-    public AsyncHttpResponseHandler() {
+    public AsyncResponseHandler() {
         super();
         handler = new MyHandler(this, Looper.getMainLooper());
     }
 
 
-    public AsyncHttpResponseHandler(OnProgressListener listener){
+    public AsyncResponseHandler(OnProgressListener listener){
         super();
         handler = new MyHandler(this, Looper.getMainLooper());
         this.mProgressListener = listener;
@@ -36,9 +36,9 @@ public abstract class AsyncHttpResponseHandler {
     }
 
     private static class MyHandler extends Handler {
-        private final AsyncHttpResponseHandler mResponder;
+        private final AsyncResponseHandler mResponder;
 
-        MyHandler(AsyncHttpResponseHandler mResponder, Looper looper) {
+        MyHandler(AsyncResponseHandler mResponder, Looper looper) {
             super(looper);
             this.mResponder = mResponder;
         }

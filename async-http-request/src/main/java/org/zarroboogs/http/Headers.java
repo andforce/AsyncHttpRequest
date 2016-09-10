@@ -6,60 +6,60 @@ import java.util.Map;
 /**
  * Created by wangdiyuan on 16-2-19.
  */
-public final class AsyncHttpHeaders {
+public final class Headers {
     private Map<String, String> mHeaders = new HashMap<>();
 
-    public AsyncHttpHeaders addHost(String host) {
+    public Headers addHost(String host) {
         mHeaders.put("Host", host);
         return this;
     }
 
-    public AsyncHttpHeaders addReferer(String referer) {
+    public Headers addReferer(String referer) {
         mHeaders.put("Referer", referer);
         return this;
     }
 
-    public AsyncHttpHeaders addOrigin(String origin) {
+    public Headers addOrigin(String origin) {
         mHeaders.put("Origin", origin);
         return this;
     }
 
-    public AsyncHttpHeaders addAccept(String accept) {
+    public Headers addAccept(String accept) {
         mHeaders.put("Accept", accept);
         return this;
     }
 
-    public AsyncHttpHeaders addUserAgent(String userAgent) {
+    public Headers addUserAgent(String userAgent) {
         mHeaders.put("User-Agent", userAgent);
         return this;
     }
 
-    public AsyncHttpHeaders addAcceptEncoding(String acceptEncoding) {
+    public Headers addAcceptEncoding(String acceptEncoding) {
         mHeaders.put("Accept-Encoding", acceptEncoding);
         return this;
     }
 
-    public AsyncHttpHeaders addAcceptLanguage(String acceptLanguage) {
+    public Headers addAcceptLanguage(String acceptLanguage) {
         mHeaders.put("Accept-Language", acceptLanguage);
         return this;
     }
 
-    public AsyncHttpHeaders addCookie(String cookie) {
+    public Headers addCookie(String cookie) {
         mHeaders.put("Cookie", cookie);
         return this;
     }
 
-    public AsyncHttpHeaders addConnection(String connection) {
+    public Headers addConnection(String connection) {
         mHeaders.put("Connection", connection);
         return this;
     }
 
-    public AsyncHttpHeaders addContentType(String contentType) {
+    public Headers addContentType(String contentType) {
         mHeaders.put("Content-Type", contentType);
         return this;
     }
 
-    public AsyncHttpHeaders add(String key, String value) {
+    public Headers add(String key, String value) {
         mHeaders.put(key, value);
         return this;
     }

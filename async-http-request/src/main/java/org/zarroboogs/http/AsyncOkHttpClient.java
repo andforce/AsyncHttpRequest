@@ -18,7 +18,6 @@ import okhttp3.Callback;
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.FormBody;
-import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -41,19 +40,19 @@ import static okhttp3.internal.Util.trimSubstring;
 /**
  * Created by wangdiyuan on 16-2-17.
  */
-public class AsyncHttpRequest {
+public class AsyncOkHttpClient {
     private OkHttpClient mOkHttpClient;
 
-    public AsyncHttpRequest() {
+    public AsyncOkHttpClient() {
         CookieManager cookieManager = new CookieManager();
         mOkHttpClient = new OkHttpClient.Builder().cookieJar(new JavaNetCookieJar(cookieManager)).build();
     }
 
-    public void post(String url, AsyncHttpHeaders headers, AsyncHttpPostFormData formData, final AsyncHttpResponseHandler responseHandler) {
+    public void post(String url, Headers headers, AsyncHttpPostFormData formData, final AsyncResponseHandler responseHandler) {
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(url);
         // 设置 headers
-        Headers.Builder headersBuilder = new Headers.Builder();
+        okhttp3.Headers.Builder headersBuilder = new okhttp3.Headers.Builder();
         if (headers != null) {
             Map<String, String> headersMap = headers.getHeaders();
             Set<String> headerKeys = headersMap.keySet();
@@ -76,7 +75,7 @@ public class AsyncHttpRequest {
         executeRequest(mOkHttpClient, request, responseHandler);
     }
 
-    public void post(String url, AsyncHttpPostString postString, final AsyncHttpResponseHandler responseHandler) {
+    public void post(String url, AsyncHttpPostString postString, final AsyncResponseHandler responseHandler) {
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(url);
         requestBuilder.post(RequestBody.create(MediaType.parse(postString.getContentType()), postString.getContent()));
@@ -84,7 +83,7 @@ public class AsyncHttpRequest {
         executeRequest(mOkHttpClient, request, responseHandler);
     }
 
-    public void post(String url, AsyncHttpPostFile postBody, final AsyncHttpResponseHandler responseHandler) {
+    public void post(String url, AsyncHttpPostFile postBody, final AsyncResponseHandler responseHandler) {
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(url);
         requestBuilder.post(RequestBody.create(MediaType.parse(postBody.getContentType()), postBody.getContent()));
@@ -93,12 +92,12 @@ public class AsyncHttpRequest {
         executeRequest(mOkHttpClient, request, responseHandler);
     }
 
-    public void post(String url, AsyncHttpHeaders headers, AsyncHttpPostFile postBody, final AsyncHttpResponseHandler responseHandler) {
+    public void post(String url, Headers headers, AsyncHttpPostFile postBody, final AsyncResponseHandler responseHandler) {
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(url);
         requestBuilder.post(RequestBody.create(MediaType.parse(postBody.getContentType()), postBody.getContent()));
         // 设置 headers
-        Headers.Builder headersBuilder = new Headers.Builder();
+        okhttp3.Headers.Builder headersBuilder = new okhttp3.Headers.Builder();
         if (headers != null) {
             Map<String, String> headersMap = headers.getHeaders();
             Set<String> headerKeys = headersMap.keySet();
@@ -113,15 +112,15 @@ public class AsyncHttpRequest {
     }
 
 
-    public void get(String url, final AsyncHttpResponseHandler responseHandler) {
+    public void get(String url, final AsyncResponseHandler responseHandler) {
         get(url, null, responseHandler);
     }
 
 
-    public void get(String url, AsyncHttpHeaders headers, final AsyncHttpResponseHandler responseHandler) {
+    public void get(String url, Headers headers, final AsyncResponseHandler responseHandler) {
         Request.Builder requestBuilder = new Request.Builder();
 
-        Headers.Builder headersBuilder = new Headers.Builder();
+        okhttp3.Headers.Builder headersBuilder = new okhttp3.Headers.Builder();
         if (headers != null) {
             Map<String, String> headersMap = headers.getHeaders();
             Set<String> headerKeys = headersMap.keySet();
@@ -138,7 +137,7 @@ public class AsyncHttpRequest {
 
     }
 
-    public OkHttpClient buildClient(OkHttpClient httpClient, AsyncHttpResponseHandler responseProgressHandler){
+    public OkHttpClient buildClient(OkHttpClient httpClient, AsyncResponseHandler responseProgressHandler){
 
         if (!responseProgressHandler.isProgressListenerEmpty()){
             final AsyncHttpProgressListener listener = new AsyncHttpProgressListener(responseProgressHandler);
@@ -156,7 +155,7 @@ public class AsyncHttpRequest {
         }
     }
 
-    private void executeRequest(OkHttpClient httpClient, Request request, final AsyncHttpResponseHandler responseProgressHandler) {
+    private void executeRequest(OkHttpClient httpClient, Request request, final AsyncResponseHandler responseProgressHandler) {
 
 
         OkHttpClient client = buildClient(httpClient, responseProgressHandler);
@@ -236,9 +235,9 @@ public class AsyncHttpRequest {
     }
 
     private class AsyncHttpProgressListener {
-        private AsyncHttpResponseHandler responseProgressHandler;
+        private AsyncResponseHandler responseProgressHandler;
 
-        public AsyncHttpProgressListener(AsyncHttpResponseHandler httpResponseProgressHandler) {
+        public AsyncHttpProgressListener(AsyncResponseHandler httpResponseProgressHandler) {
             this.responseProgressHandler = httpResponseProgressHandler;
         }
 

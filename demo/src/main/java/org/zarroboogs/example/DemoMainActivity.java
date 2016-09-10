@@ -4,9 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import org.zarroboogs.http.AsyncHttpRequest;
+import org.zarroboogs.http.AsyncOkHttpClient;
 import org.zarroboogs.http.AsyncHttpResponse;
-import org.zarroboogs.http.AsyncHttpResponseHandler;
+import org.zarroboogs.http.AsyncResponseHandler;
 import org.zarroboogs.http.post.AsyncHttpPostFormData;
 
 import java.io.IOException;
@@ -20,11 +20,11 @@ public class DemoMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mTextView = (TextView) findViewById(R.id.show_http_response);
-        final AsyncHttpRequest request = new AsyncHttpRequest();
+        final AsyncOkHttpClient request = new AsyncOkHttpClient();
 
         AsyncHttpPostFormData formData = new AsyncHttpPostFormData();
         formData.addFormData("search", "Jurassic Park");
-        request.post("https://en.wikipedia.org/w/index.php", null, formData, new AsyncHttpResponseHandler(new AsyncHttpResponseHandler.OnProgressListener() {
+        request.post("https://en.wikipedia.org/w/index.php", null, formData, new AsyncResponseHandler(new AsyncResponseHandler.OnProgressListener() {
             @Override
             public void onProgress(long bytesRead, long contentLength) {
                 mTextView.setText("" + bytesRead +"  " + contentLength);
@@ -63,7 +63,7 @@ public class DemoMainActivity extends AppCompatActivity {
 
 
 
-//        request.get("http://www.baidu.com", new AsyncHttpResponseHandler() {
+//        request.get("http://www.baidu.com", new AsyncResponseHandler() {
 //            @Override
 //            public void onFailure(IOException e) {
 //                mTextView.setText(e.toString());
@@ -77,7 +77,7 @@ public class DemoMainActivity extends AppCompatActivity {
 //        });
 
 //
-//        request.post("https://api.github.com/markdown/raw", new AsyncHttpPostString("text/x-markdown; charset=utf-8", "test"), new AsyncHttpResponseHandler() {
+//        request.post("https://api.github.com/markdown/raw", new AsyncHttpPostString("text/x-markdown; charset=utf-8", "test"), new AsyncResponseHandler() {
 //            @Override
 //            public void onFailure(IOException e) {
 //                mTextView.setText(e.toString());
