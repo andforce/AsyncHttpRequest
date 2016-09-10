@@ -19,12 +19,12 @@ plugins {
     id "com.jfrog.bintray" version "1.7"
 }
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 allprojects {
     repositories {
         maven {
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('local.properties').newDataInputStream())
             url properties.getProperty("sdk.dir")+"/extras/android/m2repository"
         }
         mavenLocal()
