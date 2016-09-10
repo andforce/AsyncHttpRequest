@@ -100,6 +100,6 @@
     <orderEntry type="library" exported="" scope="TEST" name="junit-4.12" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-23.1.1" level="project" />
-    <orderEntry type="module" module-name="async-http-request" exported="" />
+    <orderEntry type="module" module-name="asyncokhttp" exported="" />
   </component>
 </module>
