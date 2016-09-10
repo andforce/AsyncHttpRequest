@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 24
     buildToolsVersion "23.0.2"
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
     }
@@ -21,19 +21,20 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
 }
 
 ext {
-    PUBLISH_GROUP_ID = 'org.zarroboogs.http'
-    PUBLISH_VERSION = '3.4.1'
-    PUBLISH_DES = '封装了OkHttp,可以方便的进行异步请求,并在回调种直接更新UI'
-    LIB_NAME = 'AsyncOkHttp'
+    name = 'AsyncOkHttp'
+    desc = '封装了OkHttp,可以方便的进行异步请求,并在回调种直接更新UI'
 
-    WEBSITE_URL = 'https://github.com/andforce/AsyncOkHttp'
-    ISSUE_TRACKER_URL = 'https://github.com/andforce/AsyncOkHttp/issues'
-    VSC_URL = 'https://github.com/andforce/AsyncOkHttp'
+    groupId = 'org.zarroboogs.http'
+    version = '3.4.4'
+
+    websiteUrl = 'https://github.com/andforce/AsyncOkHttp'
+    issueTrackerUrl = 'https://github.com/andforce/AsyncOkHttp/issues'
+    vcsUrl = 'https://github.com/andforce/AsyncOkHttp.git'
 }
 
 // 下面这行请勿修改
