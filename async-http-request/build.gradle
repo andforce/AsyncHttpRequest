@@ -27,13 +27,13 @@ dependencies {
 
 ext {
     PUBLISH_GROUP_ID = 'org.zarroboogs.http'
-    PUBLISH_VERSION = '0.1.8'
+    PUBLISH_VERSION = '0.1.9'
     PUBLISH_DES = '封装了OKHttpClient'
-    LIB_NAME = 'AsyncHttpRequest'
+    LIB_NAME = 'AsyncOkHttp'
 
-    WEBSITE_URL = 'https://github.com/andforce/AsyncHttpRequest'
-    ISSUE_TRACKER_URL = 'https://github.com/andforce/AsyncHttpRequest/issues'
-    VSC_URL = 'https://github.com/andforce/AsyncHttpRequest'
+    WEBSITE_URL = 'https://github.com/andforce/AsyncOkHttp'
+    ISSUE_TRACKER_URL = 'https://github.com/andforce/AsyncOkHttp/issues'
+    VSC_URL = 'https://github.com/andforce/AsyncOkHttp'
 }
 
 // 下面这行请勿修改
