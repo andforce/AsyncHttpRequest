@@ -2,10 +2,11 @@
 
 buildscript {
     repositories {
+        google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.3'
+        classpath 'com.android.tools.build:gradle:3.0.1'
 
         //classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.3.1'
         //classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
@@ -25,13 +26,15 @@ allprojects {
         maven {
             Properties properties = new Properties()
             properties.load(project.rootProject.file('local.properties').newDataInputStream())
-            url properties.getProperty("sdk.dir")+"/extras/android/m2repository"
+            url properties.getProperty("sdk.dir") + "/extras/android/m2repository"
         }
         mavenLocal()
+        google()
         jcenter()
     }
 }
 
-task clean(type: Delete) {
+task customClean(type: Delete) {
     delete rootProject.buildDir
 }
+clean.dependsOn customClean
