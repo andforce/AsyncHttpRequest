@@ -72,8 +72,8 @@ ext {
 //apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/bintrayv.gradle'
 
 //apply from: 'https://raw.githubusercontent.com/andforce/release-android-lib-to-jcenter/master/bintray.gradle'
-//apply from: 'bintray.gradle'
-apply from: 'facebook.gradle'
+apply from: 'bintray.gradle'
+//apply from: 'facebook.gradle'
 //apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
 //apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
 
