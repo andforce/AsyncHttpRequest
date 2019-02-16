@@ -45,7 +45,7 @@ ext {
     websiteUrl = 'https://github.com/andforce/AsyncOkHttp'
     issueTrackerUrl = 'https://github.com/andforce/AsyncOkHttp/issues'	    // 可以填写github库的issue地址.
     vcsUrl = 'https://github.com/andforce/AsyncOkHttp.git'		         // 可以填写github上库的地址.
-    libraryVersion = '1.0.21'
+    libraryVersion = '1.0.30'
     libraryVersionDesc = 'version descriotion'
     projectLicenses = {
         license {

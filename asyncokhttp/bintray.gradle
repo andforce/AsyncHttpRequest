@@ -1,5 +1,4 @@
 apply plugin: 'com.jfrog.bintray'
-apply plugin: 'com.github.dcendents.android-maven'
 
 configurations {
     optional
@@ -31,6 +30,7 @@ bintray {
 
         version {
             desc = project.libraryVersionDesc
+            released  = new Date()
             gpg {
                 sign = true //Determines whether to GPG sign the files. The default is false
                 passphrase = properties.getProperty("bintray.gpg.password")
