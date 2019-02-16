@@ -5,14 +5,14 @@ install {
         // This generates POM.xml with proper parameters
         pom {
             project {
-                packaging 'aar'
+                packaging libraryPackaging
                 groupId publishedGroupId
                 artifactId artifact
 
                 // Add your description here
                 name libraryName
                 description libraryDescription
-                url siteUrl
+                url websiteUrl
 
                 // Set your license
                 licenses {
@@ -29,9 +29,9 @@ install {
                     }
                 }
                 scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
+                    connection websiteUrl
+                    developerConnection websiteUrl
+                    url websiteUrl
 
                 }
             }

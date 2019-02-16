@@ -1,12 +1,13 @@
 apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
 
 configurations {
     optional
     compile.extendsFrom optional
 }
 
-group = project.groupId
-version = project.versionName
+group = project.publishedGroupId
+version = project.libraryVersion
 
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
@@ -17,19 +18,19 @@ bintray {
     configurations = ['archives']
 
     pkg {
-        repo = "AsyncOkHttpClientRepo"  //发布到Bintray的maven库
-        name = project.name                  //发布到Bintray上的项目名字
-        desc = project.desc
+        repo = project.bintrayRepo                  //发布到Bintray的maven库
+        name = project.bintrayName                  //发布到Bintray上的项目名字
+        desc = project.libraryDescription
         websiteUrl = project.websiteUrl
         issueTrackerUrl = project.issueTrackerUrl
         vcsUrl = project.vcsUrl
-        licenses = ["Apache-2.0"]
+        licenses = project.projectLicenses
         override = true
         publish = true
         publicDownloadNumbers = true
 
         version {
-            desc = libraryDescription
+            desc = project.libraryVersionDesc
             gpg {
                 sign = true //Determines whether to GPG sign the files. The default is false
                 passphrase = properties.getProperty("bintray.gpg.password")

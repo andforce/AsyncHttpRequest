@@ -1,6 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.jfrog.bintray'
-apply plugin: 'com.github.dcendents.android-maven'
 
 android {
     compileSdkVersion 28
@@ -38,32 +36,33 @@ dependencies {
 }
 
 ext {
-    bintrayRepo = 'maven' // your repo name
-    bintrayName = 'asyncokhttp' // has to be same as your library module name
-    publishedGroupId = 'org.zarroboogs.http.asyncokhttp' // your module package name
-    libraryName = 'asyncokhttp'
-    artifact = 'asyncokhttp' // has to be same as your library module name
+    libraryPackaging = 'aar'
+    // jcenter
+    bintrayRepo = 'AsyncOkHttpClientRepo'                   // your repo name
+    bintrayName = 'asyncokhttp'                             // has to be same as your library module name
+    publishedGroupId = 'org.zarroboogs.http.asyncokhttp'    // your module package name
     libraryDescription = 'A OkHttp Library'
-    siteUrl = 'https://github.com/andforce/AsyncOkHttp'
-    gitUrl = 'https://github.com/andforce/AsyncOkHttp.git'
-    libraryVersion = '1.0.6'
+    websiteUrl = 'https://github.com/andforce/AsyncOkHttp'
+    issueTrackerUrl = 'https://github.com/andforce/AsyncOkHttp/issues'	    // 可以填写github库的issue地址.
+    vcsUrl = 'https://github.com/andforce/AsyncOkHttp.git'		         // 可以填写github上库的地址.
+    libraryVersion = '1.0.21'
+    libraryVersionDesc = 'version descriotion'
+    projectLicenses = {
+        license {
+            name = 'Apache-2.0'
+            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+        }
+    }
+
+    // maven
+    artifact = 'asyncokhttp'                                // has to be same as your library module name
+    libraryName = 'asyncokhttp'
     developerId = 'anforce'
     developerName = 'andforce'
     developerEmail = '86118@163.com'
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
 
-    name = 'asyncokhttp'			        // lib名称，比如：My_Lib
-    desc = 'A OkHttp Library'   			        // 库的描述尽量不要用中文
-
-    groupId = 'org.zarroboogs.http.asyncokhttp'			     // 填写groupId， 一般是包名，比如：com.android.support
-    //artifactId = '你的aritfactId'	 	 // 这里不需要再填写，自动以Model的名字作为aritfactId
-    versionName = '1.0.9'			            // 版本号，比如：22.2.1
-
-    websiteUrl = 'https://github.com/andforce/AsyncOkHttp'		       // 可以填写github上的库地址.
-    issueTrackerUrl = 'https://github.com/andforce/AsyncOkHttp'	    // 可以填写github库的issue地址.
-    vcsUrl = 'https://github.com/andforce/AsyncOkHttp'		         // 可以填写github上库的地址.
 
 }
 apply from: 'android-maven-install.gradle'
