@@ -11,7 +11,7 @@ install {
 
                 // Add your description here
                 name libraryName
-                description libraryDescription
+                description libraryDesc
                 url websiteUrl
 
                 // Set your license

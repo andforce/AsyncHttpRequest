@@ -37,25 +37,21 @@ dependencies {
 
 ext {
     libraryPackaging = 'aar'
+
     // jcenter
-    bintrayRepo = 'AsyncOkHttpClientRepo'                   // your repo name
-    bintrayName = 'asyncokhttp'                             // has to be same as your library module name
-    publishedGroupId = 'org.zarroboogs.http.asyncokhttp'    // your module package name
-    libraryDescription = 'A OkHttp Library'
-    websiteUrl = 'https://github.com/andforce/AsyncOkHttp'
-    issueTrackerUrl = 'https://github.com/andforce/AsyncOkHttp/issues'	    // 可以填写github库的issue地址.
-    vcsUrl = 'https://github.com/andforce/AsyncOkHttp.git'		         // 可以填写github上库的地址.
-    libraryVersion = '1.0.30'
+    bintrayRepo = "AsyncOkHttpClientRepo"                               // your repo name
+    name = 'asyncokhttp'			                                    // has to be same as your library module name
+    libraryDesc = 'A OkHttp Library'
+    publishedGroupId = 'org.zarroboogs.http.asyncokhttp'                // 填写groupId， 一般是包名，比如：com.android.support
+    versionName = '1.0.1'			                                    // 版本号，比如：22.2.1
+    websiteUrl = 'https://github.com/andforce/AsyncOkHttp'		        // 可以填写github上的库地址.
+    issueTrackerUrl = 'https://github.com/andforce/AsyncOkHttp'	        // 可以填写github库的issue地址.
+    vcsUrl = 'https://github.com/andforce/AsyncOkHttp'		            // 可以填写github上库的地址.
+    licenseName = "Apache-2.0"
     libraryVersionDesc = 'version descriotion'
-    projectLicenses = {
-        license {
-            name = 'Apache-2.0'
-            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-        }
-    }
 
     // maven
-    artifact = 'asyncokhttp'                                // has to be same as your library module name
+    artifact = 'asyncokhttp'                                            // has to be same as your library module name
     libraryName = 'asyncokhttp'
     developerId = 'anforce'
     developerName = 'andforce'
@@ -63,18 +59,8 @@ ext {
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
 
-
 }
 apply from: 'android-maven-install.gradle'
 apply from: 'android-tasks.gradle'
-
-//apply from: 'bintrayv.gradle'
-//apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
-//apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/bintrayv.gradle'
-
-//apply from: 'https://raw.githubusercontent.com/andforce/release-android-lib-to-jcenter/master/bintray.gradle'
 apply from: 'bintray.gradle'
-//apply from: 'facebook.gradle'
-//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
-//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
 
