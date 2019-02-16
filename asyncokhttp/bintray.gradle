@@ -1,4 +1,3 @@
-apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
 configurations {
@@ -22,62 +21,24 @@ bintray {
     configurations = ['archives']
 
     pkg {
-        repo = "maven"  //发布到Bintray的maven库
-        name = libName  //发布到Bintray上的项目名字
+        repo = "AsyncOkHttpClientRepo"  //发布到Bintray的maven库
+        name = libName                  //发布到Bintray上的项目名字
         desc = project.desc
-        publicDownloadNumbers = true
         websiteUrl = siteUrl
         issueTrackerUrl = project.issueTrackerUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
+        override = true
         publish = true
-        //attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
-    }
-}
-configurations {
-    optional
-    compile.extendsFrom optional
-}
+        publicDownloadNumbers = true
 
-task javadoc(type: Javadoc) {
-    options.encoding = "utf-8"
-    source = android.sourceSets.main.java.srcDirs
-    classpath += files(android.bootClasspath)
-
-    options {
-        //links "http://docs.oracle.com/javase/7/docs/api/"
-        linksOffline "https://developer.android.com/reference","${android.sdkDirectory}/docs/reference"
-        encoding = "UTF-8"
-    }
-    exclude '**/BuildConfig.java'
-    exclude '**/R.java'
-
-    android.libraryVariants.all { variant ->
-        variant.javaCompileProvider.configure{
-            javadoc.classpath += files(it.classpath.files)
+        version {
+            desc = libraryDescription
+            gpg {
+                sign = true //Determines whether to GPG sign the files. The default is false
+                passphrase = properties.getProperty("bintray.gpg.password")
+                //Optional. The passphrase for GPG signing'
+            }
         }
     }
-
 }
-
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
-
-task jcenter << {
-    println "Release ${version}"
-}
-
-jcenter.dependsOn(install)
-jcenter.dependsOn(bintrayUpload)

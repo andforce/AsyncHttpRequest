@@ -38,7 +38,7 @@ dependencies {
 }
 
 ext {
-    bintrayRepo = 'AsyncOkHttpClientRepo' // your repo name
+    bintrayRepo = 'maven' // your repo name
     bintrayName = 'asyncokhttp' // has to be same as your library module name
     publishedGroupId = 'org.zarroboogs.http.asyncokhttp' // your module package name
     libraryName = 'asyncokhttp'
@@ -46,7 +46,7 @@ ext {
     libraryDescription = 'A OkHttp Library'
     siteUrl = 'https://github.com/andforce/AsyncOkHttp'
     gitUrl = 'https://github.com/andforce/AsyncOkHttp.git'
-    libraryVersion = '1.0.1'
+    libraryVersion = '1.0.6'
     developerId = 'anforce'
     developerName = 'andforce'
     developerEmail = '86118@163.com'
@@ -59,14 +59,16 @@ ext {
 
     groupId = 'org.zarroboogs.http.asyncokhttp'			     // 填写groupId， 一般是包名，比如：com.android.support
     //artifactId = '你的aritfactId'	 	 // 这里不需要再填写，自动以Model的名字作为aritfactId
-    versionName = '1.0.3'			            // 版本号，比如：22.2.1
+    versionName = '1.0.9'			            // 版本号，比如：22.2.1
 
     websiteUrl = 'https://github.com/andforce/AsyncOkHttp'		       // 可以填写github上的库地址.
     issueTrackerUrl = 'https://github.com/andforce/AsyncOkHttp'	    // 可以填写github库的issue地址.
     vcsUrl = 'https://github.com/andforce/AsyncOkHttp'		         // 可以填写github上库的地址.
 
 }
-//apply from: 'installv.gradle'
+apply from: 'android-maven-install.gradle'
+apply from: 'android-tasks.gradle'
+
 //apply from: 'bintrayv.gradle'
 //apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
 //apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/bintrayv.gradle'
