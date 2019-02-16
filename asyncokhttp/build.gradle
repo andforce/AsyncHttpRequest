@@ -54,6 +54,17 @@ ext {
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     allLicenses = ["Apache-2.0"]
 
+    name = 'asyncokhttp'			        // lib名称，比如：My_Lib
+    desc = 'A OkHttp Library'   			        // 库的描述尽量不要用中文
+
+    groupId = 'org.zarroboogs.http.asyncokhttp'			     // 填写groupId， 一般是包名，比如：com.android.support
+    //artifactId = '你的aritfactId'	 	 // 这里不需要再填写，自动以Model的名字作为aritfactId
+    versionName = '1.0.3'			            // 版本号，比如：22.2.1
+
+    websiteUrl = 'https://github.com/andforce/AsyncOkHttp'		       // 可以填写github上的库地址.
+    issueTrackerUrl = 'https://github.com/andforce/AsyncOkHttp'	    // 可以填写github库的issue地址.
+    vcsUrl = 'https://github.com/andforce/AsyncOkHttp'		         // 可以填写github上库的地址.
+
 }
 //apply from: 'installv.gradle'
 //apply from: 'bintrayv.gradle'
@@ -62,6 +73,7 @@ ext {
 
 //apply from: 'https://raw.githubusercontent.com/andforce/release-android-lib-to-jcenter/master/bintray.gradle'
 //apply from: 'bintray.gradle'
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'facebook.gradle'
+//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
 
