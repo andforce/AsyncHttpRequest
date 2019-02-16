@@ -1,1 +1,1 @@
-include ':demo', ':asyncokhttp'
+include ':app', ':asyncokhttp'

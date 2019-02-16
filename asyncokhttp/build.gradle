@@ -1,41 +1,67 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
+
+
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 27
+        minSdkVersion 16
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
+
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.support:appcompat-v7:28.0.0'
     testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
     implementation 'com.squareup.okhttp3:okhttp:3.12.0'
 }
 
 ext {
-    name = 'AsyncOkHttp'
-    desc = '封装了OkHttp,可以方便的进行异步请求,并在回调种直接更新UI'
+    bintrayRepo = 'AsyncOkHttpClientRepo' // your repo name
+    bintrayName = 'asyncokhttp' // has to be same as your library module name
+    publishedGroupId = 'org.zarroboogs.http.asyncokhttp' // your module package name
+    libraryName = 'asyncokhttp'
+    artifact = 'asyncokhttp' // has to be same as your library module name
+    libraryDescription = 'A OkHttp Library'
+    siteUrl = 'https://github.com/andforce/AsyncOkHttp'
+    gitUrl = 'https://github.com/andforce/AsyncOkHttp.git'
+    libraryVersion = '1.0.1'
+    developerId = 'anforce'
+    developerName = 'andforce'
+    developerEmail = '86118@163.com'
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
 
-    groupId = 'org.zarroboogs.http'
-    versionName = '0.1.9'
-
-    websiteUrl = 'https://github.com/andforce/AsyncOkHttp'
-    issueTrackerUrl = 'https://github.com/andforce/AsyncOkHttp/issues'
-    vcsUrl = 'https://github.com/andforce/AsyncOkHttp.git'
 }
+//apply from: 'installv.gradle'
+//apply from: 'bintrayv.gradle'
+//apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
+//apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/bintrayv.gradle'
 
-// 下面这行请勿修改
-apply from: 'https://raw.githubusercontent.com/andforce/release-android-lib-to-jcenter/master/bintray.gradle'
+//apply from: 'https://raw.githubusercontent.com/andforce/release-android-lib-to-jcenter/master/bintray.gradle'
 //apply from: 'bintray.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+
