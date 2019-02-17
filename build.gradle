@@ -21,13 +21,14 @@ allprojects {
     repositories {
         google()
         jcenter()
+
         // 新添加开始
-        maven {
-            Properties properties = new Properties()
-            properties.load(project.rootProject.file('local.properties').newDataInputStream())
-            url properties.getProperty("sdk.dir")+"/extras/android/m2repository"
-        }
-        mavenLocal()
+//        maven {
+//            Properties properties = new Properties()
+//            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+//            url properties.getProperty("sdk.dir")+"/extras/android/m2repository"
+//        }
+//        mavenLocal()
         // 新添加结束
     }
 }
