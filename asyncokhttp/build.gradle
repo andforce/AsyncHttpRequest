@@ -69,7 +69,8 @@ ext {
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
 
 }
-apply from: 'android-maven-install.gradle'
-apply from: 'android-tasks.gradle'
-apply from: 'bintray.gradle'
+//apply from: 'android-maven-install.gradle'
+//apply from: 'android-tasks.gradle'
+//apply from: 'bintray.gradle'
+apply from: 'jcenter.gradle'
 
