@@ -43,6 +43,8 @@ dependencies {
 //http://blogs.quovantis.com/how-to-publish-android-library-on-bintrayjcenter/
 //https://github.com/venshine/gradle-bintray-upload
 
+//https://medium.com/mindorks/distribute-multiple-module-library-on-bintray-for-java-and-android-developers-212216bc1aa7
+//https://github.com/quangctkm9207/multi-library-bintray
 
 ext {
     libraryPackaging = 'aar'                                            //上传aar形式的打包文件
