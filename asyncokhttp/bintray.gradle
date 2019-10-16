@@ -1,10 +1,5 @@
 apply plugin: 'com.jfrog.bintray'
 
-configurations {
-    optional
-    compile.extendsFrom optional
-}
-
 def siteUrl = project.websiteUrl
 def gitUrl = project.vcsUrl
 def libName = project.name
