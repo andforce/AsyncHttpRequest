@@ -42,45 +42,89 @@ install {
     }
 }
 
+if (project.hasProperty("android")) {
+    // Android libraries
 
-
-/**
- * 打包jardoc.jar 和 sources.jar
- */
-task javadoc(type: Javadoc) {
-    options.encoding = "utf-8"
-    source = android.sourceSets.main.java.srcDirs
-    classpath += files(android.bootClasspath)
-
-    options {
-        //links "http://docs.oracle.com/javase/7/docs/api/"
-        linksOffline "https://developer.android.com/reference","${android.sdkDirectory}/docs/reference"
-        encoding = "UTF-8"
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
     }
-    exclude '**/BuildConfig.java'
-    exclude '**/R.java'
-
     android.libraryVariants.all { variant ->
-        variant.javaCompileProvider.configure{
-            javadoc.classpath += files(it.classpath.files)
+        //println variant.javaCompile.classpath.files
+
+        if (variant.name == 'release') {
+            //我们只需 release 的 javadoc
+            println(">>>>>>>>>>>>>>>" + JavaVersion.current())
+
+            task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
+
+                title "API Documentation (${project.android.defaultConfig.versionName})"
+                group "ApiDoc"
+                description "Generates Javadoc for $variant.name."
+
+                ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+                source = variant.sourceSets.collect { it.java.sourceFiles }.inject { m, i -> m + i }
+
+                doFirst {
+                    classpath = project.files(variant.javaCompileProvider.get().classpath.files,
+                            project.android.getBootClasspath())
+                }
+
+                options {
+                    encoding "utf-8"
+                }
+
+                if (JavaVersion.current().isJava6()){
+                    options.links("http://docs.oracle.com/javase/6/docs/api/")
+                } else if (JavaVersion.current().isJava7()){
+                    options.links("http://docs.oracle.com/javase/7/docs/api/")
+                }else if (JavaVersion.current().isJava8()){
+                    options.links("http://docs.oracle.com/javase/8/docs/api/")
+                }else if (JavaVersion.current().isJava9()){
+                    options.links("https://docs.oracle.com/javase/9/docs/api/")
+                }else if (JavaVersion.current().isJava10()){
+                    options.links("https://docs.oracle.com/javase/10/docs/api/")
+                }else if (JavaVersion.current().isJava11()){
+                    options.links("https://docs.oracle.com/en/java/javase/11/docs/api/")
+                }else if (JavaVersion.current().isJava12()){
+                    options.links("https://docs.oracle.com/en/java/javase/12/docs/api/")
+                }
+
+                options.links("http://developer.android.com/reference/")
+
+                if (JavaVersion.current().isJava8Compatible()) {
+                    options.addStringOption('Xdoclint:none', '-quiet')
+                }
+
+                exclude '**/BuildConfig.java'
+                exclude '**/R.java'
+            }
+            task("javadoc${variant.name.capitalize()}Jar", type: Jar,
+                    dependsOn: "generate${variant.name.capitalize()}Javadoc") {
+                from tasks.getByName("generate${variant.name.capitalize()}Javadoc").destinationDir
+            }
+            artifacts {
+                archives tasks.getByName("javadoc${variant.name.capitalize()}Jar")
+                archives sourcesJar
+            }
         }
     }
+} else {
+    println(">>>>" + classpath + " " + getMajorVersion)
+    // Java libraries
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
 
-}
-
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives javadocJar
-    archives sourcesJar
+    artifacts {
+        archives javadocJar
+        archives sourcesJar
+    }
 }
 
 /**
@@ -133,8 +177,10 @@ bintray {
  * 执行./gradlew jcenter
  * 自定完胜打包和上传
  */
-task jcenter << {
-    println "Release ${version}"
+task jcenter {
+    doLast {
+        println "Release ${version}"
+    }
 }
 
 jcenter.dependsOn(install)
