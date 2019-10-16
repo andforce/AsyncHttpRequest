@@ -74,23 +74,9 @@ if (project.hasProperty("android")) {
                     encoding "utf-8"
                 }
 
-                if (JavaVersion.current().isJava6()){
-                    options.links("http://docs.oracle.com/javase/6/docs/api/")
-                } else if (JavaVersion.current().isJava7()){
-                    options.links("http://docs.oracle.com/javase/7/docs/api/")
-                }else if (JavaVersion.current().isJava8()){
-                    options.links("http://docs.oracle.com/javase/8/docs/api/")
-                }else if (JavaVersion.current().isJava9()){
-                    options.links("https://docs.oracle.com/javase/9/docs/api/")
-                }else if (JavaVersion.current().isJava10()){
-                    options.links("https://docs.oracle.com/javase/10/docs/api/")
-                }else if (JavaVersion.current().isJava11()){
-                    options.links("https://docs.oracle.com/en/java/javase/11/docs/api/")
-                }else if (JavaVersion.current().isJava12()){
-                    options.links("https://docs.oracle.com/en/java/javase/12/docs/api/")
-                }
-
-                options.links("http://developer.android.com/reference/")
+                String javaDocsLink = String.format("https://docs.oracle.com/%sjava/javase/%s/docs/api/",
+                        (Integer.valueOf(JavaVersion.current().getMajorVersion()) <= 10) ? "" : "en/", JavaVersion.current())
+                options.links(javaDocsLink)
 
                 if (JavaVersion.current().isJava8Compatible()) {
                     options.addStringOption('Xdoclint:none', '-quiet')
