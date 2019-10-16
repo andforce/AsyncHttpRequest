@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.andforce.javademolib.MyClass;
+
 import org.zarroboogs.http.AsyncHttpResponse;
 import org.zarroboogs.http.AsyncOkHttpClient;
 import org.zarroboogs.http.AsyncResponseHandler;
@@ -21,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mTextView = (TextView) findViewById(R.id.show_http_response);
+
+        mTextView.setText(MyClass.getMyString());
 
         AsyncOkHttpClient request = new AsyncOkHttpClient();
         AsyncHttpPostFormData formData = new AsyncHttpPostFormData();

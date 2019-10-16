@@ -1,1 +1,1 @@
-include ':app', ':asyncokhttp'
+include ':app', ':asyncokhttp', ':javademolib'
