@@ -44,4 +44,9 @@ ext {
 
 }
 
-apply from: 'https://raw.githubusercontent.com/andforce/release-android-lib-to-jcenter/master/jcenter.gradle'
+boolean DEBUG = true
+if (DEBUG){
+    apply from: 'jcenter.gradle'
+} else {
+    apply from: 'https://raw.githubusercontent.com/andforce/release-android-lib-to-jcenter/master/jcenter.gradle'
+}
