@@ -19,27 +19,27 @@ targetCompatibility = "7"
 //https://github.com/quangctkm9207/multi-library-bintray
 
 ext {
-    libraryPackaging = 'aar'                                            //上传aar形式的打包文件
+    libraryPackaging = 'jar'                                            //上传aar形式的打包文件
 
     // jcenter
     bintrayRepo = "network"                                             // 你上传的位于bintray中的Repository名称，如果没有创建会有一个叫maven的
-    name = 'asyncokhttp'			                                    // 必须和library module的名字相同
+    name = 'javademolib'			                                    // 必须和library module的名字相同
     libraryDesc = 'A OkHttp Library'
     publishedGroupId = 'org.zarroboogs.http.asyncokhttp'                // 填写groupId， 一般是包名，比如：com.android.support
-    versionName = '1.0.1'			                                    // 版本号，比如：22.2.1
+    versionName = '1.0.2'			                                    // 版本号，比如：22.2.1
     websiteUrl = 'https://github.com/andforce/AsyncOkHttp'		        // 可以填写github上的库地址.
     issueTrackerUrl = 'https://github.com/andforce/AsyncOkHttp/issues'	// 可以填写github库的issue地址.
     vcsUrl = 'https://github.com/andforce/AsyncOkHttp.git'		        // 可以填写github上库的地址.
-    licenseName = "Apache-2.0"
+    licenseName = 'Apache-2.0'
     libraryVersionDesc = 'version descriotion'
 
     // maven
-    artifact = 'asyncokhttp'                                            // 必须和library module的名字相同
+    artifact = 'javademolib'                                            // 必须和library module的名字相同
     libraryName = 'asyncokhttp'
     developerId = 'anforce'
     developerName = 'andforce'
     developerEmail = '86118@163.com'
-    licenseName = 'The Apache Software License, Version 2.0'
+    licenseName = 'Apache-2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
 
 }
