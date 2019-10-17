@@ -1,6 +1,8 @@
 if (project.hasProperty("android")) {
     // Android libraries
 
+    println(">>>>>>>>>>>>>>> java doc for android lib, Java Version:" + JavaVersion.current().getMajorVersion())
+
     task sourcesJar(type: Jar) {
         classifier = 'sources'
         from android.sourceSets.main.java.srcDirs
@@ -10,7 +12,6 @@ if (project.hasProperty("android")) {
 
         if (variant.name == 'release') {
             //我们只需 release 的 javadoc
-            println(">>>>>>>>>>>>>>>" + JavaVersion.current())
 
             task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
 
@@ -52,7 +53,7 @@ if (project.hasProperty("android")) {
         }
     }
 } else {
-    println(">>>>" + classpath + " " + getMajorVersion)
+    println(">>>>>>>>>>>>>>> java doc for java lib")
     // Java libraries
     task sourcesJar(type: Jar, dependsOn: classes) {
         classifier = 'sources'
