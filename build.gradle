@@ -4,15 +4,18 @@ buildscript {
     repositories {
         google()
         jcenter()
-        
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.1'
-        
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
 
+        //https://mvnrepository.com/artifact/com.jfrog.bintray.gradle/gradle-bintray-plugin?repo=gradle-plugins
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+
+        //https://mvnrepository.com/artifact/com.github.dcendents/android-maven-gradle-plugin
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
     }
 }
@@ -21,15 +24,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-
-        // 新添加开始
-//        maven {
-//            Properties properties = new Properties()
-//            properties.load(project.rootProject.file('local.properties').newDataInputStream())
-//            url properties.getProperty("sdk.dir")+"/extras/android/m2repository"
-//        }
-//        mavenLocal()
-        // 新添加结束
     }
 }
 
