@@ -19,14 +19,15 @@ targetCompatibility = "7"
 //https://github.com/quangctkm9207/multi-library-bintray
 
 ext {
-    libraryPackaging = 'jar'                                            //上传aar形式的打包文件
 
-    // jcenter
     bintrayRepo = "network"                                             // 你上传的位于bintray中的Repository名称，如果没有创建会有一个叫maven的
+    //publishedGroupId：libName：versionName      =>      org.zarroboogs.http.asyncokhttp:javademolib:1.0.10
     libName = 'javademolib'			                                    // 必须和library module的名字相同
     publishedGroupId = 'org.zarroboogs.http.asyncokhttp'                // 填写groupId， 一般是包名，比如：com.android.support
     versionName = '1.0.10'			                                    // 版本号，比如：22.2.1
 
+    // 下面这些都是选填字段
+    //libraryPackaging = 'jar'                                              //如果是'com.android.library'默认上传aar, 如果是'java-library'默认上传jar
     //libraryDesc = 'A OkHttp Library'
     //websiteUrl = 'https://github.com/andforce/AsyncOkHttp'		        // 可以填写github上的库地址.
     //issueTrackerUrl = 'https://github.com/andforce/AsyncOkHttp/issues'	// 可以填写github库的issue地址.
@@ -37,6 +38,7 @@ ext {
 
 boolean DEBUG = true
 if (DEBUG){
+    println "------------" + project.hasProperty("android")
     apply from: 'jcenter.gradle'
 } else {
     apply from: 'https://raw.githubusercontent.com/andforce/release-android-lib-to-jcenter/master/jcenter.gradle'

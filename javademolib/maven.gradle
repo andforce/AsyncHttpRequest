@@ -5,21 +5,21 @@ install {
         // This generates POM.xml with proper parameters
         pom {
             project {
-                packaging libraryPackaging
+                packaging project.hasProperty("libraryPackaging") ? libraryPackaging : project.hasProperty("android") ? 'aar' : 'jar'
                 groupId publishedGroupId
                 artifactId artifactId
 
                 // Add your description here
                 name libName
-                if (project.hasProperty("libraryDesc")){
+                if (project.hasProperty("libraryDesc")) {
                     description libraryDesc
                 }
 
-                if (project.hasProperty("websiteUrl")){
+                if (project.hasProperty("websiteUrl")) {
                     url websiteUrl
                 }
 
-                if (project.hasProperty("licenseName")){
+                if (project.hasProperty("licenseName")) {
                     // Set your license
                     licenses {
                         license {
@@ -30,7 +30,7 @@ install {
 
 
                 scm {
-                    if (project.hasProperty("websiteUrl")){
+                    if (project.hasProperty("websiteUrl")) {
                         connection websiteUrl
                         developerConnection websiteUrl
                         url websiteUrl
