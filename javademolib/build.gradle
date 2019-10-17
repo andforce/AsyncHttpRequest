@@ -23,7 +23,7 @@ ext {
 
     // jcenter
     bintrayRepo = "network"                                             // 你上传的位于bintray中的Repository名称，如果没有创建会有一个叫maven的
-    name = 'javademolib'			                                    // 必须和library module的名字相同
+    libName = 'javademolib'			                                    // 必须和library module的名字相同
     libraryDesc = 'A OkHttp Library'
     publishedGroupId = 'org.zarroboogs.http.asyncokhttp'                // 填写groupId， 一般是包名，比如：com.android.support
     versionName = '1.0.2'			                                    // 版本号，比如：22.2.1
