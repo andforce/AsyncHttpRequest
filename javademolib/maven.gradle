@@ -11,21 +11,30 @@ install {
 
                 // Add your description here
                 name libName
-                description libraryDesc
-                url websiteUrl
+                if (project.hasProperty("libraryDesc")){
+                    description libraryDesc
+                }
 
-                // Set your license
-                licenses {
-                    license {
-                        name licenseName
+                if (project.hasProperty("websiteUrl")){
+                    url websiteUrl
+                }
+
+                if (project.hasProperty("licenseName")){
+                    // Set your license
+                    licenses {
+                        license {
+                            name licenseName
+                        }
                     }
                 }
 
-                scm {
-                    connection websiteUrl
-                    developerConnection websiteUrl
-                    url websiteUrl
 
+                scm {
+                    if (project.hasProperty("websiteUrl")){
+                        connection websiteUrl
+                        developerConnection websiteUrl
+                        url websiteUrl
+                    }
                 }
             }
         }
