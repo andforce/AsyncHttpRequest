@@ -14,9 +14,6 @@ buildscript {
 
         //https://mvnrepository.com/artifact/com.jfrog.bintray.gradle/gradle-bintray-plugin?repo=gradle-plugins
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
-
-        //https://mvnrepository.com/artifact/com.github.dcendents/android-maven-gradle-plugin
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
     }
 }
 

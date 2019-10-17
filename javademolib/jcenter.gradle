@@ -1,8 +1,5 @@
 boolean DEBUG = true
 if (DEBUG) {
-// 生成maven配置
-    apply from: 'maven.gradle'
-
 // 生成JavaDocs
     apply from: 'javadocs.gradle'
 
@@ -27,5 +24,5 @@ task jcenter {
     }
 }
 
-jcenter.dependsOn(install)
+//jcenter.dependsOn(install)
 jcenter.dependsOn(bintrayUpload)
