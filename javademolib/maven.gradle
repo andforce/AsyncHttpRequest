@@ -7,10 +7,10 @@ install {
             project {
                 packaging libraryPackaging
                 groupId publishedGroupId
-                artifactId artifact
+                artifactId artifactId
 
                 // Add your description here
-                name libraryName
+                name libName
                 description libraryDesc
                 url websiteUrl
 
@@ -18,16 +18,9 @@ install {
                 licenses {
                     license {
                         name licenseName
-                        url licenseUrl
                     }
                 }
-                developers {
-                    developer {
-                        id developerId
-                        name developerName
-                        email developerEmail
-                    }
-                }
+
                 scm {
                     connection websiteUrl
                     developerConnection websiteUrl
