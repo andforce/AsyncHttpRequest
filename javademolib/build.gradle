@@ -43,17 +43,5 @@ ext {
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
 
 }
-//apply from: 'android-maven-install.gradle'
-//apply from: 'android-tasks.gradle'
-//apply from: 'bintray.gradle'
-
-// 为了引用方便，可以把上面三个gradle内容放到一个文件中，这样引用一行，效果和上面引用3个文件是一样的
-//apply from: 'jcenter.gradle'
-
-// 另外，为了不需要每次都创建这个文件，还可以把这个配置文件放到网络上：
-//https://github.com/andforce/release-android-lib-to-jcenter
-//https://raw.githubusercontent.com/andforce/release-android-lib-to-jcenter/master/jcenter.gradle
-//所以最终，我们的引用方式变成了这样
-//apply from: 'https://raw.githubusercontent.com/andforce/release-android-lib-to-jcenter/master/jcenter.gradle'
 
 apply from: 'https://raw.githubusercontent.com/andforce/release-android-lib-to-jcenter/master/jcenter.gradle'
