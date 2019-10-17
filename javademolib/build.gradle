@@ -32,6 +32,16 @@ ext {
     vcsUrl = 'https://github.com/andforce/AsyncOkHttp.git'		        // 可以填写github上库的地址.
     licenseName = 'Apache-2.0'
     libraryVersionDesc = 'version descriotion'
+
+    // maven
+    artifact = 'javademolib'                                            // 必须和library module的名字相同
+    libraryName = 'asyncokhttp'
+    developerId = 'anforce'
+    developerName = 'andforce'
+    developerEmail = '86118@163.com'
+    licenseName = 'Apache-2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+
 }
 
 boolean DEBUG = true
