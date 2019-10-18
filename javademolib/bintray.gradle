@@ -13,7 +13,9 @@ bintray {
 
     pkg {
         repo = project.bintrayRepo  //发布到Bintray的maven库
-        name = project.libName  //发布到Bintray上的项目名字
+
+        name = project.hasProperty("libName") ? project.libName : project.name
+
         if (project.hasProperty("libraryDesc")){
             desc = project.libraryDesc
         }

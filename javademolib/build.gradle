@@ -22,11 +22,11 @@ ext {
 
     bintrayRepo = "network"                                             // 你上传的位于bintray中的Repository名称，如果没有创建会有一个叫maven的
     //publishedGroupId：libName：versionName      =>      org.zarroboogs.http.asyncokhttp:javademolib:1.0.10
-    libName = 'javademolib'			                                    // 必须和library module的名字相同
     publishedGroupId = 'org.zarroboogs.http.asyncokhttp'                // 填写groupId， 一般是包名，比如：com.android.support
-    versionName = '1.0.10'			                                    // 版本号，比如：22.2.1
+    versionName = '1.0.11'			                                    // 版本号，比如：22.2.1
 
     // 下面这些都是选填字段
+    //libName = 'javademolib'			                                    // 如果不填写，会使用module的名称
     //libraryPackaging = 'jar'                                              //如果是'com.android.library'默认上传aar, 如果是'java-library'默认上传jar
     //libraryDesc = 'A OkHttp Library'
     //websiteUrl = 'https://github.com/andforce/AsyncOkHttp'		        // 可以填写github上的库地址.

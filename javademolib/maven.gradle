@@ -9,8 +9,8 @@ install {
                 groupId publishedGroupId
                 artifactId artifactId
 
-                // Add your description here
-                name libName
+                name project.hasProperty("libName") ? libName : project.name
+
                 if (project.hasProperty("libraryDesc")) {
                     description libraryDesc
                 }
